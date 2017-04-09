@@ -1,0 +1,41 @@
+<div class="container">
+  <h2>Sign Up</h2>
+</div>
+
+<div class="container blue darken-4">
+  <%= form_for :user, url: '/users' do |f| %>
+  <div class="row">
+    <div class="input-field col s12">
+      <%= f.text_field :first_name, :class => "validate" %>
+      <label for="first_name">First Name</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="input-field col s12">
+      <%= f.text_field :last_name, :class => "validate" %>
+      <label for="last_name">Last Name</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="input-field col s12">
+      <%= f.check_box :isScientist, :class => "filled-in", :id => "Are you a scientist?" %>
+      <label for="Are you a scientist?">Are you a scientist?</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="input-field col s12">
+      <%= f.email_field :email, :class => "validate"%>
+      <label for="email" data-error="wrong" data-success="right">Email</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="input-field col s12">
+      <%= f.password_field :password, :class => "validate" %>
+      <label for="password" >Password</label>
+    </div>
+  </div>
+  <center>
+    <%= submit_tag "Submit", :class => "waves-effect waves-light btn" %>
+  </center>
+  <% end %>
+</div>

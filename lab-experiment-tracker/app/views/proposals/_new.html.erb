@@ -1,0 +1,37 @@
+<div class="container">
+<h3>Add a New Proposal:</h3>
+<% if @proposal.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@proposal.errors.count, "error") %> prohibited this proposal from being saved:</h2>
+
+    <ul>
+    <% @proposal.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+<div class="row">
+
+  <%= form_for @proposal, url: proposals_path do |f| %>
+
+    <div class="col s12">
+      <div class="row">
+        <div class="input-field col s6">
+            <%= f.label :summary %>
+            <%= f.text_field :summary %><br />
+          </div>
+        </div>
+        <div class="row">
+        <div class="input-field col s6">
+          <%= f.label :hypothesis %>
+          <%= f.text_field :hypothesis %><br />
+        </div>
+      </div>
+      <center>
+        <%= submit_tag "Submit", :class => "waves-effect waves-light btn" %>
+      </center>
+        <% end %>
+    </div>
+  </div>
+</div>

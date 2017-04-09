@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Lab Experiment Tracker</title>
+  <%= csrf_meta_tags %>
+
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
+
+<body class=" grey darken-1">
+  <% if current_user %>
+  <nav>
+    <div class="nav-wrapper blue darken-4">
+      <%= link_to "Home", proposals_path %>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="/users/<%=current_user.id%>" class="waves-effect waves-light btn data-activates="dropdown1"><%=current_user.first_name.upcase%></a></li>
+        <li><%= link_to "Logout", '/logout' %></li>
+      </ul>
+    </div>
+  </nav>
+
+  <% else %>
+  <nav>
+    <div class="nav-wrapper blue darken-4">
+      <%= link_to "Home", proposals_path %>
+      <ul class="right hide-on-med-and-down">
+        <li><%= link_to "Login", '/login' %></li>
+        <li><%= link_to "Sign Up", '/signup' %></li>
+      </ul>
+    </div>
+  </nav>
+  <% end %>
+  <%= yield %>
+</body>
+</html>

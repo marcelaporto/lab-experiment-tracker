@@ -1,0 +1,7 @@
+<br>
+<%= form_for :experiment, url: experiment_path(experiment), method: :put do |f| %>
+  <%= f.text_area :results %><br>
+<br>
+
+<%= f.submit "Update Experiment" %>
+<% end %>

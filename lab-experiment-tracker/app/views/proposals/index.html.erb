@@ -1,0 +1,45 @@
+<center>
+	<h2>Experiment Expert</h2>
+</center>
+<div class="parallax-container">
+	<div class="parallax"><%= image_tag "science-lab-pan.jpg", :class => "responsive-img" %></div>
+</div>
+<center>
+<div class="container">
+	<h2>Proposals</h2>
+</div>
+</center>
+<center>
+	<div class="center">
+		<% @proposals.each do |proposal| %>
+		<div class="card-container">
+		<div class="row">
+			<% if proposal.get_status != "Archived" %>
+			<div class="col m6 valign">
+				<div class="col m6">
+					<div class="card blue-grey darken-1">
+						<div class="card-content white-text">
+							<span class="card-title">
+								Summary: <br><%= link_to proposal.summary, proposal_path(proposal) %></span><br>
+								hypothesis:<br>
+								<%= proposal.hypothesis %>
+							</div>
+
+						</div>
+					</div>
+				</div>
+				<% end %>
+				<% end %>
+			</div>
+		</div>
+	</div>
+</div>
+</center>
+<br>
+<br>
+<% if logged_in? && current_user.isScientist == true %>
+<div class="container blue darken-4">
+	<%= render :partial => 'proposals/new', :locals => {} %>
+</div>
+<% end %>
+

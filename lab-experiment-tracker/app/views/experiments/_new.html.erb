@@ -1,0 +1,28 @@
+<br>
+<div class="container blue darken-4">
+<%= form_for :experiment, url: proposal_experiments_path(proposal) do |f| %>
+  <div class="row">
+    <div class="input-field col s12">
+      <%= f.text_field :title, :class => "validate" %>
+      <label for="title">Title</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="input-field col s12">
+      <%= f.text_field :results, :class => "validate" %>
+      <label for="results">Results</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="input-field col s12">
+      <%= f.email_field :conclusion, :class => "validate"%>
+      <label for="conclusion">Conclusion</label>
+    </div>
+  </div>
+  <center>
+    <%= submit_tag "Submit", :class => "waves-effect waves-light btn" %>
+  </center>
+  <% end %>
+</div>
+<br>
+<br>

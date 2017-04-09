@@ -1,0 +1,12 @@
+<center><h2>Experiments</h2></center>
+<% experiments.each do |experiment| %>
+	<%= link_to experiment.title, experiment_path(experiment) %><br>
+<% end %>
+
+<br>
+<% if logged_in? && current_user.isScientist == true %>
+<center>
+	<h4>Add New Experiment</h4>
+</center>
+	<%= render :partial => 'experiments/new', :locals => {proposal: @proposal} %>
+<% end %>

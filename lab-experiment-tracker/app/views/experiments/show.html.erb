@@ -1,0 +1,78 @@
+<div class="container">
+<h2><%= @experiment.title %></h2><br>
+Scientist: <%= @experiment.scientist.first_name %>
+</div>
+<br>
+
+<br>
+Procedures:
+<ol>
+<% @experiment.procedures.order(created_at: :desc).each do |procedure| %>
+	<li class="procedure-item"><%= procedure.body %><br></li>
+	<%= render partial: 'equipments/index', locals: {procedure: procedure} %>
+<% end %>
+<br>
+<br>
+</ol>
+
+Observations:
+<% @experiment.observations.each do |observation| %>
+	<%= observation.body %><br>
+	<% observation.comments.each do |comment| %>
+		<%=  comment.body %>
+		<%=  comment.user %> <br>
+	<% end %><br>
+
+	Add comment to observation
+	<%= render partial: 'comments/new', locals: {commentable: observation, comment: Comment.new} %>
+<% end %>
+
+
+<% if logged_in? && current_user.isScientist == true %>
+	Add new observation to experiment
+	<%= render partial: 'observations/new', locals: {observable: @experiment, observation: Observation.new} %>
+<% end %>
+
+
+<br>
+<br>
+<% if @experiment.results %>
+Results: <%= @experiment.results %><br>
+<% end %>
+
+<br>
+<br>
+<% if @experiment.conclusions %>
+Conclusion: <%= @experiment.conclusions %><br>
+<% end %>
+<br>
+
+<% if logged_in? && current_user.id == @experiment.scientist_id %>
+<h3>Add New Procedure</h3>
+<%= render :partial => 'procedures/new', :locals => {experiment: @experiment} %>
+
+<% if !@experiment.results %>
+<h3>Add Results</h3>
+<%= render :partial => 'experiments/edit_results', :locals => {experiment: @experiment} %>
+<% end %>
+
+<% if !@experiment.conclusions %>
+<h3>Add Conclusions</h3>
+<%= render :partial => 'experiments/edit_conclusions', :locals => {experiment: @experiment} %>
+<% end %>
+
+<% end %>
+
+Comments:
+<br>
+
+<% @experiment.comments.each do |comment| %>
+	<%=  comment.body %>
+	<%=  comment.user %> <br>
+<% end %>
+
+
+<% if logged_in? == true %>
+	Add comment to experiment
+	<%= render partial: 'comments/new', locals: {commentable: @experiment, comment: Comment.new} %>
+<% end %>

@@ -1,0 +1,74 @@
+<center>
+  <h2><%= @proposal.summary%></h2>
+</center>
+<br>
+<center>
+  <div class="card-container row">
+    <div class="row">
+      <div class="col s8 offset-s2 valign">
+        <div class="card-panel blue darken-3">
+          <span>
+            <h3>Hypothesis <h3>
+              <h4><%= @proposal.hypothesis %></h4>
+              <h4><font color="orange">Scientist: </font></h4>
+              <h5><%= @proposal.user.first_name %> <%= @proposal.user.last_name %></h5>
+
+              <%if @proposal.get_status == "Open"%>
+              <font color="orange">Status: </font><span class="cyan"><%= @proposal.get_status %></span>
+              <%end%>
+              <%if @proposal.get_status == "In progress"%>
+              <font color="orange">Status: </font><span class="green lighten-1"><%= @proposal.get_status %></span>
+              <%end%>
+              <%if @proposal.get_status == "Closed"%>
+              <font color="orange">Status: </font><span class="red lighten-1"><%= @proposal.get_status %></span>
+              <%end%>
+              <%if @proposal.get_status == "Archived"%>
+              <font color="orange">Status: </font><span class="purple accent-2"><%= @proposal.get_status %></span>
+              <%end%>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </center>
+<center>
+  <div class="container">
+    <% if logged_in? && current_user == @proposal.user %>
+    <% if @proposal.get_status == "Open" %>
+    <%= link_to "Set In Progress", change_status_path(@proposal.id), :class => "waves-effect waves-light btn", method: :put %>
+    <% elsif @proposal.get_status == "Closed" %>
+    <%= link_to "Archive Proposal",change_status_path(@proposal.id), :class => "waves-effect waves-light btn", method: :put %>
+    <% elsif @proposal.get_status == "In progress" %>
+    <%= link_to "Close Proposal", change_status_path(@proposal.id), :class => "waves-effect waves-light btn", method: :put %>
+    <% end %>
+    <% end %>
+  </center>
+    <br>
+    <br>
+  </div>
+  <div class="container cyan lighten-1">
+    <div class="row">
+      <div class="col s4">
+        <h3>Comments:</h3>
+        <br>
+        <% @proposal.comments.each do |comment| %>
+        <h5><%=  comment.body %></h5><br>
+        <div class="row">
+          <div class="col s3">
+            <div class="chip orange lighten-2">
+              <%= comment.user.first_name %>
+              <%= comment.user.last_name %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>
+<center>
+  <h5>Add comment to proposal</h5>
+</center>
+<%= render partial: 'comments/new', locals: {commentable: @proposal, comment: Comment.new} %>
+
+<%= render :partial => 'experiments/index', :locals => {experiments: @proposal.experiments, proposal: @proposal} %>
